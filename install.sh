@@ -33,8 +33,7 @@ LOCAL_PATH=$(pwd)
 INSTALL_PATH="$HOME/.devtools/project-init"
 
 mkdir -p $INSTALL_PATH
-cp -r $LOCAL_PATH/* $INSTALL_PATH/
-rm -rf $INSTALL_PATH/install.sh $INSTALL_PATH/.git
+cp -r $LOCAL_PATH/src/* $INSTALL_PATH/
 
 echo '
 # project-init environment variables

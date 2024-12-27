@@ -110,7 +110,7 @@ cd "$LOCAL_PATH"
 # Create a README file
 echo -e "${CYAN}Creating README file...${RESET}"
 echo "# Welcome to $REPO_NAME" > README.md
-cat "$PROJECT_INIT_PATH/scripts/db-init.md" >> README.md
+cat "$PROJECT_INIT_PATH/docs/db-init.md" >> README.md
 completed
 
 # Create src directory
