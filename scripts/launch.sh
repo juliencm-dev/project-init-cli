@@ -110,7 +110,12 @@ cd "$LOCAL_PATH"
 # Create a README file
 echo -e "${CYAN}Creating README file...${RESET}"
 echo "# Welcome to $REPO_NAME" > README.md
-cat "$PROJECT_INIT_PATH/setup-db.md" >> README.md
+cat "$PROJECT_INIT_PATH/scripts/db-init.md" >> README.md
+completed
+
+# Create src directory
+echo -e "${CYAN}Creating src directory...${RESET}"
+mkdir src
 completed
 
 # Create a .env file
@@ -118,12 +123,11 @@ echo -e "${CYAN}Creating .env file...${RESET}"
 touch .env
 completed
 
-
 # Generate build and deployement scripts
 echo -e "${CYAN}Generating build and deployment scripts...${RESET}"
 mkdir -p "$LOCAL_PATH/build"
-cp "$PROJECT_INIT_PATH/build.sh" "$LOCAL_PATH/build/build.sh"
-cp "$PROJECT_INIT_PATH/deploy.sh" "$LOCAL_PATH/build/deploy.sh"
+cp "$PROJECT_INIT_PATH/scripts/build.sh" "$LOCAL_PATH/build/build.sh"
+cp "$PROJECT_INIT_PATH/scripts/deploy.sh" "$LOCAL_PATH/build/deploy.sh"
 
 sed -i "s|{{PROJECT_NAME}}|$REPO_NAME|g" "$LOCAL_PATH/build/build.sh"
 sed -i "s|{{PROJECT_NAME}}|$REPO_NAME|g" "$LOCAL_PATH/build/deploy.sh"
@@ -134,8 +138,11 @@ chmod +x "$LOCAL_PATH/build/deploy.sh"
 # Create Dockerfile
 echo -e "${CYAN}Creating Dockerfile...${RESET}"
 touch "$LOCAL_PATH/build/Dockerfile"
-touch "$LOCAL_PATH/docker-compose.yml"
+completed
 
+# Create docker-compose.yml
+echo -e "${CYAN}Creating docker-compose.yml...${RESET}"
+touch "$LOCAL_PATH/docker-compose.yml"
 completed
 
 # Add .gitignore file with at least .env in it
@@ -158,19 +165,19 @@ if [ -n "$DATABASES" ]; then
      postgres)
         echo -e "${CYAN}Setting up PostgreSQL development database...${RESET}"
         mkdir -p "$LOCAL_PATH/dev-db/postgres"
-        cp "$PROJECT_INIT_PATH/postgres.template.yml" "$LOCAL_PATH/dev-db/postgres/docker-compose.template.yml"
+        cp "$PROJECT_INIT_PATH/templates/postgres.template.yml" "$LOCAL_PATH/dev-db/postgres/docker-compose.template.yml"
         completed
         ;;
       mongodb)
         echo -e "${CYAN}Setting up MongoDB development database...${RESET}"
         mkdir -p "$LOCAL_PATH/dev-db/mongodb"
-        cp "$PROJECT_INIT_PATH/mongo.template.yml" "$LOCAL_PATH/dev-db/mongodb/docker-compose.template.yml"
+        cp "$PROJECT_INIT_PATH/templates/mongodb.template.yml" "$LOCAL_PATH/dev-db/mongodb/docker-compose.template.yml"
         completed
         ;;
       chroma)
         echo -e "${CYAN}Setting up Chroma development database...${RESET}"
         mkdir -p "$LOCAL_PATH/dev-db/chroma"
-        cp "$PROJECT_INIT_PATH/chroma.template.yml" "$LOCAL_PATH/dev-db/chroma/docker-compose.template.yml"
+        cp "$PROJECT_INIT_PATH/templates/chroma.template.yml" "$LOCAL_PATH/dev-db/chroma/docker-compose.template.yml"
         completed
         ;;
       *)
@@ -185,7 +192,7 @@ if [ -n "$DATABASES" ]; then
    setup_database $(echo $db | tr -d ' ')  # Remove any whitespace
   done
 
-  cp "$PROJECT_INIT_PATH/setup-db.sh" "$LOCAL_PATH/dev-db/setup.sh"
+  cp "$PROJECT_INIT_PATH/scripts/db-init.sh" "$LOCAL_PATH/dev-db/setup.sh"
   chmod +x "$LOCAL_PATH/dev-db/setup.sh"
 fi
 

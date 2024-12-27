@@ -33,10 +33,13 @@ LOCAL_PATH=$(pwd)
 INSTALL_PATH="$HOME/.devtools/project-init"
 
 mkdir -p $INSTALL_PATH
-find $LOCAL_PATH -type f ! -name "install.sh" -exec cp {} "$INSTALL_PATH/" \;
+cp -r $LOCAL_PATH/* $INSTALL_PATH/
+rm -rf $INSTALL_PATH/install.sh $INSTALL_PATH/.git
+
 echo '
 # project-init environment variables
 ' >> "$HOME/.bashrc"
+
 completed
 
 ### SETUP ENVIRONMENT VARIABLES ###
@@ -69,8 +72,8 @@ completed
 
 read -p "Do you wish to add a school projects directory? (y/n) " -r ADD_SCHOOL
 
-sed "s|{{ADD_SCHOOL}}|$ADD_SCHOOL|g" "$INSTALL_PATH/launch.sh" > "$INSTALL_PATH/launch.sh.tmp"
-mv "$INSTALL_PATH/launch.sh.tmp" "$INSTALL_PATH/launch.sh"
+sed "s|{{ADD_SCHOOL}}|$ADD_SCHOOL|g" "$INSTALL_PATH/scripts/launch.sh" > "$INSTALL_PATH/scripts/launch.sh.tmp"
+mv "$INSTALL_PATH/scripts/launch.sh.tmp" "$INSTALL_PATH/scripts/launch.sh"
 
 if [ "$ADD_SCHOOL" == "y" ]; then
   read -p "School projects path$ (required): " -r SCHOOL_PATH
@@ -89,12 +92,12 @@ fi
 echo -e "${YELLOW}Creating project-init alias${RESET}"
 echo '
 project-init() {
-  "$HOME/.devtools/project-init/launch.sh" "$@"
+  "$HOME/.devtools/project-init/scripts/launch.sh" "$@"
 }
 ' >> "$HOME/.bashrc"
 completed
 
-chmod +x "$INSTALL_PATH/launch.sh"
+chmod +x "$INSTALL_PATH/scripts/launch.sh"
 
 echo -e "To get started, run 'project-init -h' to see the available commands."
 echo -e "Happy coding! 🚀"

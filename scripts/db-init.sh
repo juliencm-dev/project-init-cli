@@ -15,6 +15,10 @@ DB_USER=$1
 DB_PASSWORD=$2
 DB_PATH="$PROJECT_PATH/dev-db"
 
+completed() {
+  echo -e "${GREEN}✓${RESET} Completed"
+}
+
 # Check arguments
 if [ "$#" -lt 2 ]; then
  echo -e "${RED}Usage: $0 <db-user> <db-password>${RESET}"
@@ -27,6 +31,9 @@ echo "services:" >> "$DB_PATH/docker-compose.yml"
 readarray -t dirs < <(find $DB_PATH -mindepth 1 -maxdepth 1 -type d -printf "%f\n")
 
 for dir in "${dirs[@]}"; do
+    
+    echo -e "${YELLOW}Setting up $dir database...${RESET}"
+
     TEMPLATE_PATH="$DB_PATH/$dir/docker-compose.template.yml"
     DB_DATA_PATH="$DB_PATH/$dir/data"
 
@@ -36,6 +43,8 @@ for dir in "${dirs[@]}"; do
         -e "s|{{DB_USER}}|$DB_USER|g" \
         -e "s|{{DB_PASSWORD}}|$DB_PASSWORD|g" \
     $TEMPLATE_PATH >> "$DB_PATH/docker-compose.yml"
+
+    completed
 done
 
 echo -e "Docker Compose file generated at $DB_PATH/docker-compose.yml"
