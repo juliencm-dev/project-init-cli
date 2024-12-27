@@ -16,7 +16,7 @@
     container_name: {{PROJECT_NAME}}-pgadmin
     image: dpage/pgadmin4
     depends_on:
-      - postgres
+      - postgres-{{PROJECT_NAME}}
     ports:
       - "5050:80"
     environment:
