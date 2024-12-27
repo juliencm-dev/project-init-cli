@@ -15,7 +15,7 @@ PROJECT_INIT_PATH="$HOME/.devtools/project-init"
 ADD_SCHOOL={{ADD_SCHOOL}}
 
 completed() {
-  echo -e "  ${GREEN}✓${RESET} Completed"
+  echo -e "${GREEN}✓${RESET} Completed"
 }
 
 script_help() {

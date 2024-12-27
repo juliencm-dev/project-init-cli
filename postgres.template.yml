@@ -1,4 +1,4 @@
-  postgres:
+  postgres-{{PROJECT_NAME}}:
     container_name: {{PROJECT_NAME}}-pg
     image: postgres
     hostname: localhost
@@ -12,7 +12,7 @@
       - {{PROJECT_PATH}}:/var/lib/postgresql/data
     restart: unless-stopped
 
-  pgadmin:
+  pgadmin-{{PROJECT_NAME}}:
     container_name: {{PROJECT_NAME}}-pgadmin
     image: dpage/pgadmin4
     depends_on:

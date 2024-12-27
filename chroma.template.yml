@@ -1,4 +1,4 @@
-  chroma:
+  chroma-{{PROJECT_NAME}}:
     image: chromadb/chroma
     container_name: {{PROJECT_NAME}}-chroma
     ports:
@@ -8,6 +8,8 @@
       CHROMA_SERVER_AUTH_PROVIDER: "chromadb.auth.token.TokenAuthServerProvider"
       CHROMA_SERVER_AUTH_TOKEN_TRANSPORT_HEADER: "X_CHROMA_TOKEN"
       CHROMA_SERVER_AUTH_CREDENTIALS: "{{DB_USER}}:{{DB_PASSWORD}}"
+    restart: unless-stopped
     volumes:
       - {{PROJECT_PATH}}:/chroma/chroma  
+  
 

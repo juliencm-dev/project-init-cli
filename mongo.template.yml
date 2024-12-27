@@ -1,4 +1,4 @@
-  mongo:
+  mongo-{{PROJECT_NAME}}:
     image: mongo
     restart: unless-stopped 
     container_name: {{PROJECT_NAME}}-mdb
