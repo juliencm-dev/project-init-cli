@@ -19,7 +19,7 @@ completed() {
 }
 
 script_help() {
-  echo "Usage: $0 <project-type> <repository-name> [--db database-types] [commit-message]"
+  echo "Usage: project-init <project-type> <repository-name> [--db database-types] [commit-message]"
     echo "  Mandatory arguments:"
     echo "    -p                 Personal projects"
     if [ "$ADD_SCHOOL" == "y" ]; then
