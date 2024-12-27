@@ -1,6 +1,6 @@
 # Installation Instructions
 
-Follow these steps to set up your project-init script! 🚀
+Follow these steps to set up your project-init cli tool! 🚀
 
 ---
 
@@ -19,7 +19,7 @@ Make sure you have the following installed:
 
 1. **Navigate to the `project-init` directory** 📂
    ```bash
-   cd project-init
+   cd project-init-cli
    ```
 
 2. **Run the `install.sh` script** 📜:
