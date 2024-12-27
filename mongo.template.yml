@@ -1,0 +1,12 @@
+  mongo:
+    image: mongo
+    restart: unless-stopped 
+    container_name: {{PROJECT_NAME}}-mdb
+    ports:
+      - 8081:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: {{DB_USER}} 
+      MONGO_INITDB_ROOT_PASSWORD: {{DB_PASSWORD}}
+    volumes:
+      - {{PROJECT_PATH}}:/data/db
+

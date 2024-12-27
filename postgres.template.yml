@@ -1,0 +1,26 @@
+  postgres:
+    container_name: {{PROJECT_NAME}}-pg
+    image: postgres
+    hostname: localhost
+    ports:
+      - "8080:5432"
+    environment:
+      POSTGRES_USER: {{DB_USER}} 
+      POSTGRES_PASSWORD: {{DB_PASSWORD}}
+      POSTGRES_DB: {{PROJECT_NAME}}-db
+    volumes:
+      - {{PROJECT_PATH}}:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: {{PROJECT_NAME}}-pgadmin
+    image: dpage/pgadmin4
+    depends_on:
+      - postgres
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: {{DB_USER}}@{{PROJECT_NAME}}.com
+      PGADMIN_DEFAULT_PASSWORD: {{DB_PASSWORD}}
+    restart: unless-stopped
+
