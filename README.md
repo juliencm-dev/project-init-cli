@@ -73,4 +73,4 @@ project-init -p my-project --db postgres "Initial commit"
 ## 📢 Troubleshooting
 
 - If you encouter any issues, make sure you have autorized the execution of the script.
-- Contact me on [LinkedIn](https://www.linkedin.com/in/juliencm-dev/) or via email at `hello@juliencm-dev` for any further assistance.
+- Contact me on [LinkedIn](https://www.linkedin.com/in/juliencm-dev/) or via email at [hello@juliencm.dev](mailto:hello@juliencm.dev) for any further assistance.
