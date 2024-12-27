@@ -35,9 +35,9 @@ Make sure you have the following installed:
 
 ## 🎉 You're all set!
 
-- The database will be available at `localhost:5432` for Postgres and `localhost:27017` for MongoDB
+- The database will be available at `localhost:8080` for Postgres and `localhost:8081` for MongoDB
 - PgAdmin will be available at `localhost:5050` with `<db-user>@<repository-name>.com` and `<db-password>` as credentials
-- Chroma will be available at `localhost:8081` with `<db-user>:<db-password>` as credentials. 
+- Chroma will be available at `localhost:8082` with `<db-user>:<db-password>` as credentials. 
 - The database files will be stored in the `<database-type>/data` directory.
 
 ---
