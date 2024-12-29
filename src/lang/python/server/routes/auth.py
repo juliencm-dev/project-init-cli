@@ -1,12 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from auth.schema import AuthRequest, Token   
-from auth.utils import authenticate_user, register_user, create_access_token
-from server.config import settings
+from fastapi.security import OAuth2PasswordRequestForm
 from datetime import timedelta
 
-from fastapi.security import OAuth2PasswordRequestForm
-
 from server.db.user.schema import UserRequest
+from server.auth.models import AuthRequest, Token   
+from server.auth.dependencies import authenticate_user, register_user, create_access_token
+from server.config import settings
 
 router = APIRouter(
     prefix="/auth",
@@ -26,7 +25,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()) -> Token:
     
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": user.id}, expires_delta=access_token_expires
+        data={"sub": user.id, "role": user.role}, expires_delta=access_token_expires
     )
 
     return Token(access_token=access_token, token_type="bearer")

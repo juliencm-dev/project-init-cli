@@ -1,14 +1,15 @@
 from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlmodel import select
-from user.schema import User, UserRequest
 
+from server.db.user.schema import User, UserRequest
 
 class UserDAO:
     def __init__(self, session:AsyncSession):
         self.session = session
 
     async def get_user(self, id: str):
-        return await self.session.get(User, id)
+        user = await self.session.exec(select(User).where(User.id == id))
+        return user.first()
 
     async def get_users(self):
         users =  await self.session.exec(select(User).order_by(User.last_name))

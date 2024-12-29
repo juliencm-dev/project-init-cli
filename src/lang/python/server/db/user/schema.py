@@ -1,11 +1,10 @@
-from server.utils import nowutc, cuid
-
 from datetime import datetime
 from pydantic import BaseModel
 from sqlmodel import Enum, SQLModel, Field, Column
-from sqlalchemy import VARCHAR, event
+from sqlalchemy import event
 import sqlalchemy.dialects.postgresql as pg
 
+from server.utils import nowutc, cuid
 
 #NOTE: If you wish to add RBAC to your app, you can uncomment the different role fields.
 
