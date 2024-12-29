@@ -1,8 +1,9 @@
 from uvicorn import run
-from server import create_app, config
-from server.router import api
+from server import create_app
+from server.routes import api
+from server.config import settings
 
-development = True if config.FASTAPI_ENV == "development" else False
+development = settings.FASTAPI_ENV == "development"
 
 app = create_app()
 

@@ -13,6 +13,10 @@ class UserDAO:
     async def get_users(self):
         users =  await self.session.exec(select(User).order_by(User.last_name))
         return users.all()
+    
+    async def get_user_by_email(self, email: str):
+        user = await self.session.exec(select(User).where(User.email == email))
+        return user.first()
 
     async def create_user(self, user_data: UserRequest):
         user = User(**user_data.model_dump())

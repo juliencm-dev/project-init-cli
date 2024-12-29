@@ -1,18 +1,25 @@
+from server.utils import nowutc, cuid
+
 from datetime import datetime
 from pydantic import BaseModel
-from sqlmodel import SQLModel, Field, Column
-from sqlalchemy import event
+from sqlmodel import Enum, SQLModel, Field, Column
+from sqlalchemy import VARCHAR, event
 import sqlalchemy.dialects.postgresql as pg
-from cuid2 import Cuid as CUID2
 
-def cuid():
-    return CUID2().generate()
+
+#NOTE: If you wish to add RBAC to your app, you can uncomment the different role fields.
+
+class UserRole(str, Enum):
+    USER = "user"
+    ADMIN = "admin"
 
 class UserResponse(BaseModel):
     id: str
     first_name: str
     last_name: str
     email: str
+    role: UserRole
+    verified: datetime | None
     created_at: datetime
     updated_at: datetime
 
@@ -26,17 +33,46 @@ class User(SQLModel, table=True):
     __tablename__ = 'users'
     id: str = Field(
         default_factory=cuid,
-        sa_column=Column(pg.VARCHAR(length=24), primary_key=True, unique=True)
+        sa_column=Column(
+            pg.VARCHAR(length=24), 
+            primary_key=True, 
+            unique=True
+        )
     )
     first_name: str 
     last_name: str 
-    email: str = Field(nullable=False,unique=True, max_length=128)
+    email: str = Field(
+        sa_column=Column(
+            pg.VARCHAR(length=128), 
+            nullable=False, 
+            unique=True
+        )
+    )
     password: str 
-    created_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now))
-    updated_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now))
+    verified: datetime = Field(
+        sa_column=Column(
+            pg.TIMESTAMP, 
+            default=None, 
+            nullable=True
+        )
+    )
+    role: UserRole = Field(
+        sa_column=Column(
+            pg.VARCHAR(length=16), 
+            default=UserRole.USER)
+    )
+    created_at: datetime = Field(
+        sa_column=Column(
+            pg.TIMESTAMP, 
+            default=nowutc)
+    )
+    updated_at: datetime = Field(
+        sa_column=Column(
+            pg.TIMESTAMP, 
+            default=nowutc)
+    )
 
-
-@event.listens_for(User, "before_update")
+@event.listens_for(User, "after_update")
 def update_timestamp(mapper, connection, target):
-    target.updated_at = datetime.now()
+    target.updated_at = nowutc()
 
