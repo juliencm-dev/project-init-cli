@@ -1,11 +1,26 @@
 from datetime import datetime
-from sqlmodel import SQLModel, Field, Column
+from pydantic import BaseModel
+from sqlmodel import TIMESTAMP, SQLModel, Field, Column
 from sqlalchemy import event
 import sqlalchemy.dialects.postgresql as pg
 from cuid2 import Cuid as CUID2
 
 def cuid():
     return CUID2().generate()
+
+class UserResponse(BaseModel):
+    id: str
+    first_name: str
+    last_name: str
+    email: str
+    created_at: datetime
+    updated_at: datetime
+
+class UserRequest(BaseModel):
+    first_name: str
+    last_name: str
+    email: str
+    password: str
 
 class User(SQLModel, table=True):
     __tablename__ = 'users'
@@ -17,8 +32,8 @@ class User(SQLModel, table=True):
     last_name: str 
     email: str = Field(nullable=False,unique=True, max_length=128)
     password: str 
-    created_at: datetime = Field(default=datetime.now)
-    updated_at: datetime = Field(default=datetime.now)
+    created_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now))
+    updated_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now))
 
 
 @event.listens_for(User, "before_update")
