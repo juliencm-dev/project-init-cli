@@ -14,7 +14,7 @@ db_engine = create_async_engine(
 async def create_db():
     async with db_engine.begin() as connection:
         #NOTE: Import all table models here to avoid circular imports:
-        from db.schema import User
+        from user.schema import User
 
         await connection.run_sync(SQLModel.metadata.create_all)
 

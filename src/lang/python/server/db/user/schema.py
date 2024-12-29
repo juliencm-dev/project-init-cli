@@ -1,6 +1,6 @@
 from datetime import datetime
 from pydantic import BaseModel
-from sqlmodel import TIMESTAMP, SQLModel, Field, Column
+from sqlmodel import SQLModel, Field, Column
 from sqlalchemy import event
 import sqlalchemy.dialects.postgresql as pg
 from cuid2 import Cuid as CUID2
