@@ -2,8 +2,8 @@ from typing import List
 
 from fastapi import APIRouter, Depends
 from sqlmodel.ext.asyncio.session import AsyncSession
-from db.schema import UserRequest, UserResponse   
-from db.dao import UserDAO
+from db.user.schema import UserRequest, UserResponse   
+from db.user.dao import UserDAO
 from db.db import get_session
 from http import HTTPStatus
 
