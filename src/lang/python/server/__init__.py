@@ -1,21 +1,19 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
 from server.db import create_db
 from server.routes import auth, user
-from server.config import settings
+from server.middlewares import register_middlewares
+from server.exceptions import register_exceptions
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     #NOTE: This is where you can add your own startup logic.
-    print("Server is starting on port 8001")
     await create_db() 
 
     yield
 
     #NOTE: This is where you can add your own shutdown logic.
-    print("Server is shutting down")
 
 def create_app():
     app = FastAPI(
@@ -25,15 +23,10 @@ def create_app():
         lifespan=lifespan,
     )
 
+    register_exceptions(app) 
+    register_middlewares(app)
+
     app.include_router(auth.router)
     app.include_router(user.router)
-
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=settings.ALLOWED_ORIGINS,
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
 
     return app

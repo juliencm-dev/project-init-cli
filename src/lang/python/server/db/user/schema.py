@@ -12,21 +12,7 @@ class UserRole(str, Enum):
     USER = "user"
     ADMIN = "admin"
 
-class UserResponse(BaseModel):
-    id: str
-    first_name: str
-    last_name: str
-    email: str
-    role: UserRole
-    verified: datetime | None
-    created_at: datetime
-    updated_at: datetime
 
-class UserRequest(BaseModel):
-    first_name: str
-    last_name: str
-    email: str
-    password: str
 
 class User(SQLModel, table=True):
     __tablename__ = 'users'

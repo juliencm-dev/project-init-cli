@@ -5,11 +5,13 @@ from argon2 import PasswordHasher
 from jose import jwt, JWTError
 from datetime import datetime, timedelta
 
+from server.exceptions.auth import EmailNotVerifiedException, InvalidCredentialsException
 from server.db import get_session
-from server.db.user.schema import User, UserRequest
+from server.db.user.schema import User 
 from server.db.auth.schema import ValidationToken, ValidationTokenType
 from server.db.user.dao import UserDAO
-from server.auth.models import TokenData, AuthRequest
+from server.services.auth.models import TokenData, AuthRequest
+from server.services.user.models import UserRequest
 from server.utils import nowutc, cuid
 from server.config import settings
 
@@ -66,11 +68,6 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 #NOTE: This function is used to get the current user from the JWT token. It takes the token as an argument and returns the user's data.
 
 async def get_current_user(token: str=Depends(oauth2_scheme), session: AsyncSession=Depends(get_session)):
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
 
     try:
         payload = jwt.decode(token, settings.AUTH_SECRET, algorithms=[settings.ALGORITHM])
@@ -78,24 +75,24 @@ async def get_current_user(token: str=Depends(oauth2_scheme), session: AsyncSess
         exp: datetime | None = payload.get("exp")
 
         if exp is None:
-            raise credentials_exception
+            raise InvalidCredentialsException() 
 
         if  exp < nowutc():
-            raise credentials_exception
+            raise InvalidCredentialsException()
 
         if user_id is None:
-            raise credentials_exception
+            raise InvalidCredentialsException()
 
         token_data = TokenData(id=user_id, exp=exp)
 
     except JWTError:
-        raise credentials_exception
+        raise InvalidCredentialsException()
 
     db = UserDAO(session)
     user = await db.get_user(token_data.id)
     
     if user is None:
-        raise credentials_exception
+        raise InvalidCredentialsException()
 
     return user
 
@@ -105,7 +102,7 @@ async def get_current_active_user(user: User = Depends(get_current_user)):
     if user.verified:
         return user
     else:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Please verify your email address to activate your account.")
+        raise EmailNotVerifiedException() 
 
 def set_token_expiration(exp: int):
     return datetime.now() + timedelta(minutes=exp)
