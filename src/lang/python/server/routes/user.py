@@ -1,21 +1,20 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from server.db import get_session
-from server.db.user.schema import User, UserRequest, UserResponse, UserRole   
+from server.db.user.schema import User, UserRole   
 from server.db.user.dao import UserDAO
-from server.auth.dependencies import get_current_active_user
+from server.services.user.models import UserRequest, UserResponse
+from server.services.auth.dependencies import get_current_active_user
+from server.exceptions.user import UserRoleNotAllowedException
 
-router = APIRouter(
-    prefix="/users",
-    tags=["users"],
-)
+router = APIRouter()
 
 async def require_admin(user: User = Depends(get_current_active_user)):
     if user.role != UserRole.ADMIN:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only admins are allowed to access this route.")
+        raise UserRoleNotAllowedException()
 
 @router.get("/", response_model=List[UserResponse])
 async def get_users(_: User = Depends(require_admin), session: AsyncSession=Depends(get_session)):
@@ -31,7 +30,7 @@ async def get_current_user(current_user: User = Depends(get_current_active_user)
 async def get_user(userd_id: str, current_user: User = Depends(get_current_active_user),session: AsyncSession=Depends(get_session)):
     #NOTE: Might abstract this into a decorator down the road.
     if current_user.id != userd_id and current_user.role != UserRole.ADMIN:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only admins are allowed to access this route.")
+        raise UserRoleNotAllowedException()
 
     db = UserDAO(session)
     user = await db.get_user(userd_id)
@@ -41,7 +40,7 @@ async def get_user(userd_id: str, current_user: User = Depends(get_current_activ
 async def update_user(userd_id: str, user_data: UserRequest,current_user: User = Depends(get_current_active_user), session: AsyncSession=Depends(get_session)):
     #NOTE: Might abstract this into a decorator down the road.
     if current_user.id != userd_id and current_user.role != UserRole.ADMIN:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only admins are allowed to access this route.")
+        raise UserRoleNotAllowedException()
 
     db = UserDAO(session)
     updated_user = await db.update_user(userd_id, user_data)
@@ -51,7 +50,7 @@ async def update_user(userd_id: str, user_data: UserRequest,current_user: User =
 async def delete_user(userd_id: str, current_user:User = Depends(get_current_active_user), session: AsyncSession=Depends(get_session)):
      #NOTE: Might abstract this into a decorator down the road.
     if current_user.id != userd_id and current_user.role != UserRole.ADMIN:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only admins are allowed to access this route.")
+        raise UserRoleNotAllowedException()
 
     db = UserDAO(session)
     await db.delete_user(userd_id)

@@ -13,7 +13,7 @@ from server.db.user.dao import UserDAO
 from server.services.auth.models import TokenData, AuthRequest
 from server.services.user.models import UserRequest
 from server.utils import nowutc, cuid
-from server.config import settings
+from server.config import settings as s
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
@@ -61,7 +61,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
         expire = nowutc() + timedelta(minutes=15)
 
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, settings.AUTH_SECRET, algorithm=settings.ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, s.AUTH_SECRET, algorithm=s.ALGORITHM)
 
     return encoded_jwt
 
@@ -70,7 +70,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 async def get_current_user(token: str=Depends(oauth2_scheme), session: AsyncSession=Depends(get_session)):
 
     try:
-        payload = jwt.decode(token, settings.AUTH_SECRET, algorithms=[settings.ALGORITHM])
+        payload = jwt.decode(token, s.AUTH_SECRET, algorithms=[s.ALGORITHM])
         user_id: str | None = payload.get("sub")
         exp: datetime | None = payload.get("exp")
 
@@ -108,6 +108,6 @@ def set_token_expiration(exp: int):
     return datetime.now() + timedelta(minutes=exp)
 
 def generate_validation_token(user_id: str, token_type: ValidationTokenType):
-    exp = settings.VERIFICATION_TOKEN_EXPIRE_MINUTES if token_type == ValidationTokenType.VERIFICATION else settings.PASSWORD_RESET_TOKEN_EXPIRE_MINUTES
+    exp = s.VERIFICATION_TOKEN_EXPIRE_MINUTES if token_type == ValidationTokenType.VERIFICATION else s.PASSWORD_RESET_TOKEN_EXPIRE_MINUTES
     return ValidationToken(user_id=user_id, token=cuid(), expires_at=set_token_expiration(exp), token_type=token_type)
 

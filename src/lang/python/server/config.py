@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     VERIFICATION_TOKEN_EXPIRE_MINUTES: int
     PASSWORD_RESET_TOKEN_EXPIRE_MINUTES: int
     ALGORITHM: str
+    VERSION: str
 
     @field_validator("ALLOWED_ORIGINS", mode="before")
     def parse_allowed_origins(cls, v: str | List[str]) -> List[str]:

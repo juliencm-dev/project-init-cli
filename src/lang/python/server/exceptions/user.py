@@ -1,5 +1,4 @@
 from fastapi import status
-
 from server.exceptions import ServerException
 
 class UserNotFoundException(ServerException):
@@ -9,6 +8,12 @@ class UserAlreadyExistsException(ServerException):
     pass
 
 class UserNotVerifiedException(ServerException):
+    pass
+
+class UserRoleNotAllowedException(ServerException):
+    pass
+
+class UserNotCreatedException(ServerException):
     pass
 
 USER_EXCEPTIONS = {
@@ -31,6 +36,20 @@ USER_EXCEPTIONS = {
         "detail": {
             "message": "The user associated with the provided email is not verified",
             "error_code": "user_not_verified",
+        },
+    },
+    UserRoleNotAllowedException: {
+        "status_code": status.HTTP_403_FORBIDDEN,
+        "detail": {
+            "message": "Only admins are allowed to access this route.",
+            "error_code": "user_role_not_allowed",
+        },
+    },
+    UserNotCreatedException: {
+        "status_code": status.HTTP_400_BAD_REQUEST,
+        "detail": {
+            "message": "The user could not be created",
+            "error_code": "user_not_created",
         },
     },
 

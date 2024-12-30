@@ -3,10 +3,10 @@ from typing import AsyncGenerator
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlmodel import SQLModel
 
-from server.config import settings
+from server.config import settings as s
 
-ENV = settings.FASTAPI_ENV == "development" 
-DB_URL = settings.DEV_DATABASE_URL if ENV else settings.PROD_DATABASE_URL
+ENV = s.FASTAPI_ENV == "development" 
+DB_URL = s.DEV_DATABASE_URL if ENV else s.PROD_DATABASE_URL
 
 db_engine = create_async_engine(
     url=DB_URL,

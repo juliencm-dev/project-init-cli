@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
+from server.config import settings as s
 from server.db import create_db
 from server.routes import auth, user
 from server.middlewares import register_middlewares
@@ -19,14 +20,16 @@ def create_app():
     app = FastAPI(
         title="Your App Name",
         description="Project structure for your FastAPI app.",
-        version="0.1.0",
+        version=s.VERSION,
         lifespan=lifespan,
     )
+    
+    api_prefix = f"/api/{s.VERSION}"
 
     register_exceptions(app) 
     register_middlewares(app)
 
-    app.include_router(auth.router)
-    app.include_router(user.router)
+    app.include_router(auth.router, prefix=f"{api_prefix}/auth", tags=["auth"])
+    app.include_router(user.router, prefix=f"{api_prefix}/users", tags=["users"])
 
     return app

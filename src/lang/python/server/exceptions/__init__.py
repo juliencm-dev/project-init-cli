@@ -1,12 +1,12 @@
 from typing import Any, Dict, Optional
 
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 from server.exceptions.auth import *
 from server.exceptions.user import *
 
-class ServerException(HTTPException):
+class ServerException(Exception):
     """Base class for all server exceptions."""
 
 def register_exceptions(app: FastAPI):
