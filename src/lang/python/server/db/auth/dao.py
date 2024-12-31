@@ -1,10 +1,11 @@
 from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlmodel import select
 
-from server.auth.dependencies import generate_validation_token
-from server.db.auth.schema import ValidationTokenType, ValidationToken
+from server.db.auth.schema import  ValidationToken
+from server.utils.security.tokens.models import ValidationTokenResponse
+from server.exceptions.auth import TokenNotCreatedException, TokenNotFoundException
 
-class AuthDAO:
+class TokenDAO:
     def __init__(self, session:AsyncSession):
         self.session = session
 
@@ -13,15 +14,23 @@ class AuthDAO:
         token_data = await self.session.exec(select(ValidationToken).where(ValidationToken.token == token))
         return token_data.first()
 
-    async def create_validation_token(self, user_id: str, token_type: ValidationTokenType):
-        token = generate_validation_token(user_id, token_type)
-        self.session.add(token)
-        await self.session.commit()
-        return token
+    async def insert_validation_token(self, token_data: ValidationTokenResponse):
+        try:
+            self.session.add(ValidationToken(**token_data.model_dump()))
+            await self.session.commit()
+        except Exception:
+            await self.session.rollback()
+            raise TokenNotCreatedException()
 
-    async def delete_validation_token(self, token_data: ValidationToken):
-        result = await self.session.exec(select(ValidationToken).where(ValidationToken.token == token_data.token))
+        return token_data
+
+    async def delete_validation_token(self, token_str: str):
+        result = await self.session.exec(select(ValidationToken).where(ValidationToken.token == token_str))
         token = result.first()
+
+        if not token:
+            raise TokenNotFoundException()
+
         await self.session.delete(token)
         await self.session.commit()
 

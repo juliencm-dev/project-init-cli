@@ -16,6 +16,12 @@ class TokenExpiredException(ServerException):
 class EmailNotVerifiedException(ServerException):
     """Raised when the email is not verified."""
 
+class TokenNotCreatedException(ServerException):
+    """Raised when the token creation fails."""
+
+class TokenNotFoundException(ServerException):
+    """Raised when the token is not found."""
+
 AUTH_EXCEPTIONS = {
     InvalidCredentialsException: {
         "status_code": status.HTTP_401_UNAUTHORIZED,
@@ -51,6 +57,20 @@ AUTH_EXCEPTIONS = {
         "detail": {
             "message": "Please verify your email address to activate your account.",
             "error_code": "email_not_verified",
+        },
+    },
+    TokenNotCreatedException: {
+        "status_code": status.HTTP_400_BAD_REQUEST,
+        "detail": {
+            "message": "Token could not be created",
+            "error_code": "token_creation_failed",
+        },
+    },
+    TokenNotFoundException: {
+        "status_code": status.HTTP_404_NOT_FOUND,
+        "detail": {
+            "message": "Token could not be found",
+            "error_code": "token_not_found",
         },
     },
 

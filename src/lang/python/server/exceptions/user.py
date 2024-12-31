@@ -4,7 +4,7 @@ from server.exceptions import ServerException
 class UserNotFoundException(ServerException):
     pass
 
-class UserAlreadyExistsException(ServerException):
+class UserWithEmailAlreadyExistsException(ServerException):
     pass
 
 class UserNotVerifiedException(ServerException):
@@ -24,7 +24,7 @@ USER_EXCEPTIONS = {
             "error_code": "user_not_found",
         },
     },
-    UserAlreadyExistsException: {
+    UserWithEmailAlreadyExistsException: {
         "status_code": status.HTTP_400_BAD_REQUEST,
         "detail": {
             "message": "The user associated with the provided email already exists",

@@ -1,43 +1,20 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends,status
 from fastapi.security import OAuth2PasswordRequestForm
-from datetime import timedelta
 
-from server.exceptions.auth import InvalidCredentialsException
-from server.exceptions.user import UserNotCreatedException
-from server.services.user.models import UserRequest, UserResponse
-from server.services.auth.models import AuthRequest, Token   
-from server.services.auth.dependencies import authenticate_user, register_user, create_access_token
-from server.config import settings as s
+from server.services.auth import get_auth_service
+from server.services.auth.service import AuthService
+from server.services.user.models import UserRegistration, UserResponse
+from server.services.auth.models import AccessTokenData 
 
 router = APIRouter()
 
-@router.post("/login", status_code=status.HTTP_200_OK)
-async def login(form_data: OAuth2PasswordRequestForm = Depends()) -> Token:
-    user = await authenticate_user(AuthRequest(email=form_data.username, password=form_data.password))
+@router.post("/login", response_model=AccessTokenData, status_code=status.HTTP_200_OK)
+async def login(form_data: OAuth2PasswordRequestForm = Depends(), auth_service: AuthService = Depends(get_auth_service)):
+    return await auth_service.login(form_data)
 
-    if not user:
-        raise InvalidCredentialsException()
-
-    access_token_expires = timedelta(minutes=s.ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = create_access_token(
-        data={"sub": user.id, "role": user.role}, expires_delta=access_token_expires
-    )
-
-    return Token(access_token=access_token, token_type="bearer")
-
-@router.post("/register", status_code=status.HTTP_201_CREATED)
-async def register(user_data: UserRequest) -> UserResponse:
-    user = await register_user(user_data)
-
-    if not user:
-       raise UserNotCreatedException()
-    
-    #TODO: Implement email verification and password reset logic
-    
-    return UserResponse(**user.model_dump())
-
-
-
+@router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
+async def register(user_data: UserRegistration, auth_service: AuthService = Depends(get_auth_service)):
+    return await auth_service.register(user_data)
 
 #TODO: Implement email verification and password reset logic
 

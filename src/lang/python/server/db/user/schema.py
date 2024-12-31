@@ -1,7 +1,7 @@
+from enum import Enum
 from datetime import datetime
-from pydantic import BaseModel
-from sqlmodel import Enum, SQLModel, Field, Column
-from sqlalchemy import event
+from sqlmodel import SQLModel, Field, Column
+# from sqlalchemy import event
 import sqlalchemy.dialects.postgresql as pg
 
 from server.utils import nowutc, cuid
@@ -11,7 +11,6 @@ from server.utils import nowutc, cuid
 class UserRole(str, Enum):
     USER = "user"
     ADMIN = "admin"
-
 
 
 class User(SQLModel, table=True):
@@ -43,7 +42,7 @@ class User(SQLModel, table=True):
     )
     role: UserRole = Field(
         sa_column=Column(
-            pg.VARCHAR(length=16), 
+            pg.ENUM(UserRole),
             default=UserRole.USER)
     )
     created_at: datetime = Field(
@@ -57,7 +56,7 @@ class User(SQLModel, table=True):
             default=nowutc)
     )
 
-@event.listens_for(User, "after_update")
-def update_timestamp(mapper, connection, target):
-    target.updated_at = nowutc()
+# @event.listens_for(User, "after_update")
+# def update_timestamp(mapper, connection, target):
+#     target.updated_at = nowutc()
 
