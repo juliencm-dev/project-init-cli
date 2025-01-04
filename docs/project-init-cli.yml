@@ -1,0 +1,383 @@
+# The configurations that used for the recording, feel free to edit them
+config:
+
+  # Specify a command to be executed
+  # like `/bin/bash -l`, `ls`, or any other commands
+  # the default is bash for Linux
+  # or powershell.exe for Windows
+  command: bash -l
+  
+  # Specify the current working directory path
+  # the default is the current working directory path
+  cwd: /home/juliencm-dev/projects/perso/project-init-cli
+  
+  # Export additional ENV variables
+  env:
+    recording: true
+  
+  # Explicitly set the number of columns
+  # or use `auto` to take the current
+  # number of columns of your shell
+  cols: 189
+  
+  # Explicitly set the number of rows
+  # or use `auto` to take the current
+  # number of rows of your shell
+  rows: 40
+
+  # Amount of times to repeat GIF
+  # If value is -1, play once
+  # If value is 0, loop indefinitely
+  # If value is a positive number, loop n times
+  repeat: 0
+  
+  # Quality
+  # 1 - 100
+  quality: 100
+  
+  # Delay between frames in ms
+  # If the value is `auto` use the actual recording delays
+  frameDelay: auto
+  
+  # Maximum delay between frames in ms
+  # Ignored if the `frameDelay` isn't set to `auto`
+  # Set to `auto` to prevent limiting the max idle time
+  maxIdleTime: 2000
+  
+  # The surrounding frame box
+  # The `type` can be null, window, floating, or solid`
+  # To hide the title use the value null
+  # Don't forget to add a backgroundColor style with a null as type
+  frameBox:
+    type: floating 
+    title: Project Init 
+    style:
+      border: 0px black solid
+      # boxShadow: none
+      margin: 0px
+      borderRadius: 0px
+  
+  # Add a watermark image to the rendered gif
+  # You need to specify an absolute path for
+  # the image on your machine or a URL, and you can also
+  # add your own CSS styles
+  watermark:
+    imagePath: null
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  
+  # Cursor style can be one of
+  # `block`, `underline`, or `bar`
+  cursorStyle: block
+  
+  # Font family
+  # You can use any font that is installed on your machine
+  # in CSS-like syntax
+  fontFamily: "JetBrainsMono Nerd Font, Monaco, Lucida Console, Ubuntu Mono, Monospace"
+  
+  # The size of the font
+  fontSize: 12
+  
+  # The height of lines
+  lineHeight: 1
+  
+  # The spacing between letters
+  letterSpacing: 0
+
+
+  # Theme
+  theme:
+    background: "transparent"
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+  
+# Records, feel free to edit them
+records: 
+  - delay: 6
+    content: "\e[?2004h\r\n\e[38;2;49;50;68m\e[48;2;49;50;68;38;2;205;214;244m\U000F08C7 juliencm-dev \e[48;2;250;179;135;38;2;49;50;68m\e[38;2;24;24;37m …/project-init-cli \e[48;2;166;227;161;38;2;250;179;135m\e[38;2;30;30;46m  master \e[48;2;148;226;213;38;2;166;227;161m\e[48;2;137;180;250;38;2;148;226;213m\e[45;38;2;137;180;250m\e[38;2;24;24;37m  08:22 \e[0m\e[35m \e[0m\r\n\e[1;38;2;166;227;161m\e[0m "
+  - delay: 8
+    content: "\e]0;juliencm-dev@home:~/project-init-cli\a"
+  - delay: 2522
+    content: .
+  - delay: 296
+    content: /
+  - delay: 376
+    content: i
+  - delay: 80
+    content: 'n'
+  - delay: 88
+    content: s
+  - delay: 200
+    content: 'tall.sh '
+  - delay: 592
+    content: "\r\n\e[?2004l\r\e[0;35m                         __               __             __        __  __ \r\n _____________  ____    |__| ____   _____/  |_          |__| ____ |__|/  |_ \r\n \\____ \\_  __ \\/  _ \\   |  |/ __ \\_/ ___\\   __\\  ______ |  |/    \\|  \\   __\\ \r\n |  |_> >  | \\(  <_> )  |  \\  ___/\\  \\___|  |   /_____/ |  |   |  \\  ||  | \r\n |   __/|__|   \\____/\\__|  |\\___  >\\___  >__|           |__|___|  /__||__| \r\n |__|               \\______|    \\/     \\/                       \\/ \e[0m\r\n \r\n\e[0;33mWelcome to the project-init cli installation script!\e[0m\r\nFollow the instructions below to install to setup the different environment variables.\r\nBefore using project-init, make sure you have Git, Github CLI, Docker and Docker Compose installed.\r\nPress enter to continue or Ctrl+C to exit.\r\n"
+  - delay: 916
+    content: "\r\n\e[0;33mSetting up project-init directory\e[0m\r\n"
+  - delay: 251
+    content: "\e[0;32m✓\e[0m Completed\r\n\e[0;33mSetting up environment variables\e[0m\r\nGithub username (required): "
+  - delay: 861
+    content: j
+  - delay: 176
+    content: u
+  - delay: 96
+    content: l
+  - delay: 88
+    content: i
+  - delay: 32
+    content: e
+  - delay: 168
+    content: 'n'
+  - delay: 152
+    content: c
+  - delay: 288
+    content: m
+  - delay: 528
+    content: '-'
+  - delay: 96
+    content: d
+  - delay: 72
+    content: e
+  - delay: 216
+    content: v
+  - delay: 928
+    content: "\r\n\e[0;32m✓\e[0m Completed\r\nPersonal projects path (required): "
+  - delay: 1528
+    content: $
+  - delay: 240
+    content: H
+  - delay: 98
+    content: O
+  - delay: 96
+    content: M
+  - delay: 72
+    content: E
+  - delay: 744
+    content: /
+  - delay: 96
+    content: p
+  - delay: 72
+    content: a
+  - delay: 80
+    content: t
+  - delay: 96
+    content: h
+  - delay: 688
+    content: /
+  - delay: 70
+    content: t
+  - delay: 96
+    content: o
+  - delay: 548
+    content: /
+  - delay: 64
+    content: p
+  - delay: 98
+    content: r
+  - delay: 78
+    content: o
+  - delay: 88
+    content: j
+  - delay: 78
+    content: e
+  - delay: 88
+    content: c
+  - delay: 64
+    content: t
+  - delay: 104
+    content: s
+  - delay: 1392
+    content: "\r\n\e[0;32m✓\e[0m Completed\r\nDo you wish to add a school projects directory? (y/n) "
+  - delay: 1200
+    content: 'n'
+  - delay: 288
+    content: "\r\n\e[0;33mCreating project-init alias\e[0m\r\n\e[0;32m✓\e[0m Completed\r\nTo get started, run 'project-init -h' to see the available commands.\r\nHappy coding! \U0001F680\r\n"
+  - delay: 8
+    content: "\e]0;juliencm-dev@home:~/project-init-cli\a"
+  - delay: 6
+    content: "\e[?2004h\r\n\e[38;2;49;50;68m\e[48;2;49;50;68;38;2;205;214;244m\U000F08C7 juliencm-dev \e[48;2;250;179;135;38;2;49;50;68m\e[38;2;24;24;37m …/project-init-cli \e[48;2;166;227;161;38;2;250;179;135m\e[38;2;30;30;46m  master \e[48;2;148;226;213;38;2;166;227;161m\e[48;2;137;180;250;38;2;148;226;213m\e[45;38;2;137;180;250m\e[38;2;24;24;37m  08:22 \e[0m\e[35m \e[0m\r\n\e[1;38;2;166;227;161m\e[0m "
+  - delay: 1118
+    content: c
+  - delay: 112
+    content: l
+  - delay: 112
+    content: e
+  - delay: 64
+    content: a
+  - delay: 56
+    content: r
+  - delay: 208
+    content: "\r\n\e[?2004l\r\e[H\e[2J\e]0;juliencm-dev@home:~/project-init-cli\a"
+  - delay: 6
+    content: "\e[?2004h\r\n\e[38;2;49;50;68m\e[48;2;49;50;68;38;2;205;214;244m\U000F08C7 juliencm-dev \e[48;2;250;179;135;38;2;49;50;68m\e[38;2;24;24;37m …/project-init-cli \e[48;2;166;227;161;38;2;250;179;135m\e[38;2;30;30;46m  master \e[48;2;148;226;213;38;2;166;227;161m\e[48;2;137;180;250;38;2;148;226;213m\e[45;38;2;137;180;250m\e[38;2;24;24;37m  08:22 \e[0m\e[35m \e[0m\r\n\e[1;38;2;166;227;161m\e[0m "  
+  - delay: 1014
+    content: p
+  - delay: 96
+    content: r
+  - delay: 104
+    content: o
+  - delay: 200
+    content: j
+  - delay: 24
+    content: e
+  - delay: 120
+    content: c
+  - delay: 144
+    content: t
+  - delay: 272
+    content: '-'
+  - delay: 288
+    content: i
+  - delay: 112
+    content: 'n'
+  - delay: 72
+    content: i
+  - delay: 80
+    content: t
+  - delay: 968
+    content: ' '
+  - delay: 304
+    content: '-'
+  - delay: 312
+    content: h
+  - delay: 896
+    content: "\r\n\e[?2004l\r"
+  - delay: 5
+    content: "Usage: project-init <project-type> <repository-name> [--db database-types] [commit-message]\r\n  Mandatory arguments:\r\n    -p                 Personal projects\r\n    <repository-name>  The name of the repository\r\n\r\n  Optional arguments:\r\n    --db              Comma-separated list of database types to setup\r\n                      Options: postgres, mongodb, chroma\r\n                      Example: --db postgres,mongodb\r\n    [commit-message]   The commit message for the initial commit\r\n                      Default: 'feat: <repository-name> initial commit'\r\n\e]0;juliencm-dev@home:~/project-init-cli\a"
+  - delay: 6
+    content: "\e[?2004h\r\n\e[38;2;49;50;68m\e[48;2;49;50;68;38;2;205;214;244m\U000F08C7 juliencm-dev \e[48;2;250;179;135;38;2;49;50;68m\e[38;2;24;24;37m …/project-init-cli \e[48;2;166;227;161;38;2;250;179;135m\e[38;2;30;30;46m  master \e[48;2;148;226;213;38;2;166;227;161m\e[48;2;137;180;250;38;2;148;226;213m\e[45;38;2;137;180;250m\e[38;2;24;24;37m  08:22 \e[0m\e[35m \e[0m\r\n\e[1;38;2;166;227;161m\e[0m "
+  - delay: 1373
+    content: p
+  - delay: 72
+    content: r
+  - delay: 136
+    content: o
+  - delay: 72
+    content: j
+  - delay: 64
+    content: e
+  - delay: 64
+    content: c
+  - delay: 177
+    content: t
+  - delay: 183
+    content: '-'
+  - delay: 98
+    content: i
+  - delay: 80
+    content: 'n'
+  - delay: 112
+    content: i
+  - delay: 88
+    content: t
+  - delay: 220
+    content: ' '
+  - delay: 260
+    content: '-'
+  - delay: 128
+    content: p
+  - delay: 104
+    content: ' '
+  - delay: 416
+    content: m
+  - delay: 94
+    content: 'y'
+  - delay: 88
+    content: '-'
+  - delay: 74
+    content: a
+  - delay: 92
+    content: w
+  - delay: 88
+    content: e
+  - delay: 176
+    content: s
+  - delay: 112
+    content: o
+  - delay: 64
+    content: m
+  - delay: 104
+    content: e
+  - delay: 261
+    content: '-'
+  - delay: 297
+    content: p
+  - delay: 128
+    content: r
+  - delay: 80
+    content: o
+  - delay: 160
+    content: j
+  - delay: 120
+    content: e
+  - delay: 64
+    content: c
+  - delay: 128
+    content: t
+  - delay: 132
+    content: ' '
+  - delay: 305
+    content: '-'
+  - delay: 127
+    content: '-'
+  - delay: 272
+    content: d
+  - delay: 104
+    content: b
+  - delay: 176
+    content: ' '
+  - delay: 360
+    content: p
+  - delay: 72
+    content: o
+  - delay: 64
+    content: s
+  - delay: 80
+    content: t
+  - delay: 288
+    content: g
+  - delay: 176
+    content: r
+  - delay: 64
+    content: e
+  - delay: 72
+    content: s
+  - delay: 416
+    content: "\r\n\e[?2004l\r"
+  - delay: 5
+    content: "\e[0;33mThe specified folder 'my-awesome-project' does not exist in /home/juliencm-dev/path/to/projects. Creating it...\e[0m\r\n\e[0;32m✓\e[0m Completed\r\n\e[0;36mCreating README file...\e[0m\r\n\e[0;32m✓\e[0m Completed\r\n\e[0;36mCreating src directory...\e[0m\r\n\e[0;32m✓\e[0m Completed\r\n\e[0;36mCreating .env file...\e[0m\r\n\e[0;32m✓\e[0m Completed\r\n\e[0;36mGenerating build and deployment scripts...\e[0m\r\n"
+  - delay: 7
+    content: "\e[0;36mCreating Dockerfile...\e[0m\r\n\e[0;32m✓\e[0m Completed\r\n\e[0;36mCreating docker-compose.yml...\e[0m\r\n\e[0;32m✓\e[0m Completed\r\n\e[0;36mAdding .gitignore file...\e[0m\r\n\e[0;32m✓\e[0m Completed\r\n\e[0;36mSetting up PostgreSQL development database...\e[0m\r\n\e[0;32m✓\e[0m Completed\r\n\e[0;36mCreating repository 'my-awesome-project' on GitHub as private...\e[0m\r\n"
+  - delay: 1234
+    content: "\e[0;32m✓\e[0m Created repository juliencm-dev/my-awesome-project on GitHub\r\n  https://github.com/juliencm-dev/my-awesome-project\r\n\e[0;36mInitializing local repository in /home/juliencm-dev/path/to/projects/my-awesome-project...\e[0m\r\nInitialized empty Git repository in /home/juliencm-dev/path/to/projects/my-awesome-project/.git/\r\n\e[0;36mSetting up remote repository at git@github.com:juliencm-dev/my-awesome-project.git...\e[0m\r\n\e[0;36mCommitting changes...\e[0m\r\n"
+  - delay: 5
+    content: "[main (root-commit) 26046a0] feat: my-awesome-project initial commit\r\n 8 files changed, 146 insertions(+)\r\n create mode 100644 .gitignore\r\n create mode 100644 README.md\r\n create mode 100644 build/Dockerfile\r\n create mode 100755 build/build.sh\r\n create mode 100755 build/deploy.sh\r\n create mode 100644 dev-db/postgres/docker-compose.template.yml\r\n create mode 100755 dev-db/setup.sh\r\n create mode 100644 docker-compose.yml\r\n\e[0;36mPushing to GitHub...\e[0m\r\n"
+  - delay: 208
+    content: "\rEnter passphrase for key '/home/juliencm-dev/.ssh/github': "
+  - delay: 2598
+    content: "\r\n"
+  - delay: 265
+    content: "Enumerating objects: 12, done.\r\nCounting objects:   8% (1/12)\rCounting objects:  16% (2/12)\rCounting objects:  25% (3/12)\rCounting objects:  33% (4/12)\rCounting objects:  41% (5/12)\rCounting objects:  50% (6/12)\rCounting objects:  58% (7/12)\rCounting objects:  66% (8/12)\rCounting objects:  75% (9/12)\rCounting objects:  83% (10/12)\rCounting objects:  91% (11/12)\rCounting objects: 100% (12/12)\rCounting objects: 100% (12/12), done.\r\nDelta compression using up to 12 threads\r\nCompressing objects:  10% (1/10)\rCompressing objects:  20% (2/10)\rCompressing objects:  30% (3/10)\rCompressing objects:  40% (4/10)\rCompressing objects:  50% (5/10)\rCompressing objects:  60% (6/10)\rCompressing objects:  70% (7/10)\rCompressing objects:  80% (8/10)\rCompressing objects:  90% (9/10)\rCompressing objects: 100% (10/10)\rCompressing objects: 100% (10/10), done.\r\nWriting objects:   8% (1/12)\rWriting objects:  16% (2/12)\rWriting objects:  25% (3/12)\rWriting objects:  33% (4/12)\rWriting objects:  41% (5/12)\rWriting objects:  50% (6/12)\rWriting objects:  58% (7/12)\rWriting objects:  66% (8/12)\rWriting objects:  75% (9/12)\rWriting objects:  83% (10/12)\rWriting objects:  91% (11/12)\rWriting objects: 100% (12/12)\rWriting objects: 100% (12/12), 2.50 KiB | 2.50 MiB/s, done.\r\nTotal 12 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)\r\n"
+  - delay: 294
+    content: "To github.com:juliencm-dev/my-awesome-project.git\r\n * [new branch]      main -> main\r\nbranch 'main' set up to track 'origin/main'.\r\n\e[0;32mRepository 'my-awesome-project' has been created at /home/juliencm-dev/path/to/projects/my-awesome-project and pushed to GitHub.\e[0m\r\n\e]0;juliencm-dev@home:~/project-init-cli\a"
+  - delay: 2000 
+    content: "\e]0;juliencm-dev@home:~/project-init-cli\a"
